@@ -2,8 +2,9 @@
 
 namespace Components\Views\Heroes;
 
-use Components\Mocks\HerosMocks;
 use Components\Models\HeroModel;
+use Components\Services\HeroService;
+use Components\Services\MessageService;
 use Viewi\BaseComponent;
 
 class Heroes extends BaseComponent
@@ -14,14 +15,17 @@ class Heroes extends BaseComponent
      */
     public array $heros;
     public ?HeroModel $selectedHero = null;
+    private MessageService $messageService;
 
-    public function __construct(HerosMocks $herosMocks)
+    public function __construct(HeroService $heroService, MessageService $messageService)
     {
-        $this->heros = $herosMocks->GetHeroes();
+        $this->heros = $heroService->GetHeroes();
+        $this->messageService = $messageService;
     }
 
     public function onSelect(HeroModel $hero)
     {
         $this->selectedHero = $hero;
+        $this->messageService->Add("Heroes component: Selected hero id={$hero->Id}");
     }
 }

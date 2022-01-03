@@ -1,0 +1,5 @@
+<div if="count($messageService->messages)">
+    <h2>Messages</h2>
+    <button class="clear" (click)="$messageService->Clear()">Clear messages</button>
+    <div foreach="$messageService->messages as $message">$message</div>
+</div>
