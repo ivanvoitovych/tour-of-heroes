@@ -1,6 +1,14 @@
-<h2>{strtoupper($hero->Name)} Details</h2>
-<div><span>id: </span>{$hero->Id}</div>
-<div>
-    <label for="name">Hero name: </label>
-    <input id="name" model="$hero->Name" placeholder="name">
+<h2>My Heroes</h2>
+<ul class="heroes">
+    <li foreach="$heros as $hero" (click)="onSelect($hero)" class.selected="$hero === $selectedHero">
+        <span class="badge">{$hero->Id}</span> {$hero->Name}
+    </li>
+</ul>
+<div if="$selectedHero">
+    <h2>{strtoupper($selectedHero->Name)} Details</h2>
+    <div><span>id: </span>{$selectedHero->Id}</div>
+    <div>
+        <label for="hero-name">Hero name: </label>
+        <input id="hero-name" model="$selectedHero->Name" placeholder="name">
+    </div>
 </div>

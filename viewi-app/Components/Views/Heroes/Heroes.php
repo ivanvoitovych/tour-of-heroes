@@ -2,17 +2,26 @@
 
 namespace Components\Views\Heroes;
 
+use Components\Mocks\HerosMocks;
 use Components\Models\HeroModel;
 use Viewi\BaseComponent;
 
 class Heroes extends BaseComponent
 {
-    public HeroModel $hero;
+    /**
+     * 
+     * @var HeroModel[]
+     */
+    public array $heros;
+    public ?HeroModel $selectedHero = null;
 
-    public function __construct()
+    public function __construct(HerosMocks $herosMocks)
     {
-        $this->hero = new HeroModel();
-        $this->hero->Id = 1;
-        $this->hero->Name = 'Mastermind';
+        $this->heros = $herosMocks->GetHeroes();
+    }
+
+    public function onSelect(HeroModel $hero)
+    {
+        $this->selectedHero = $hero;
     }
 }
