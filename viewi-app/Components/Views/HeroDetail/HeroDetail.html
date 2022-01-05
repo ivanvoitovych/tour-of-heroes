@@ -1,8 +1,11 @@
-<div if="$hero">
-    <h2>{strtoupper($hero->Name)} Details</h2>
-    <div><span>id: </span>{$hero->Id}</div>
-    <div>
-        <label for="hero-name">Hero name: </label>
-        <input id="hero-name" model="$hero->Name" placeholder="name">
+<Layout title="{$hero->Name} details">
+    <div if="$hero">
+        <h2>{strtoupper($hero->Name)} Details</h2>
+        <div><span>id: </span>{$hero->Id}</div>
+        <div>
+            <label for="hero-name">Hero name: </label>
+            <input id="hero-name" model="$hero->Name" placeholder="name">
+        </div>
+        <button (click)="GoBack()">go back</button>
     </div>
-</div>
+</Layout>

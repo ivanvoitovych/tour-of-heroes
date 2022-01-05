@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "viewi/viewi",
-            "version": "v0.1.2",
+            "version": "v0.1.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/viewi/viewi.git",
-                "reference": "4adc9525ed2d2b465baeb371ddf2022e5d6c4a58"
+                "reference": "c035135e1efcab34693f3bb6d38a9506743e2157"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/viewi/viewi/zipball/4adc9525ed2d2b465baeb371ddf2022e5d6c4a58",
-                "reference": "4adc9525ed2d2b465baeb371ddf2022e5d6c4a58",
+                "url": "https://api.github.com/repos/viewi/viewi/zipball/c035135e1efcab34693f3bb6d38a9506743e2157",
+                "reference": "c035135e1efcab34693f3bb6d38a9506743e2157",
                 "shasum": ""
             },
             "require": {
@@ -45,9 +45,9 @@
             ],
             "support": {
                 "issues": "https://github.com/viewi/viewi/issues",
-                "source": "https://github.com/viewi/viewi/tree/v0.1.2"
+                "source": "https://github.com/viewi/viewi/tree/v0.1.3"
             },
-            "time": "2022-01-02T08:19:40+00:00"
+            "time": "2022-01-03T16:47:07+00:00"
         }
     ],
     "packages-dev": [],

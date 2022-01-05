@@ -1,31 +1,99 @@
-/* Application-wide Styles */
-h1 {
-    color: #369;
+/* Global Styles */
+* {
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 250%;
+}
+
+h1 {
+    color: #264D73;
+    font-size: 2.5rem;
 }
 
 h2,
 h3 {
     color: #444;
-    font-family: Arial, Helvetica, sans-serif;
     font-weight: lighter;
 }
 
+h3 {
+    font-size: 1.3rem;
+}
+
 body {
-    margin: 2em;
+    padding: .5rem;
+    max-width: 1000px;
+    margin: auto;
+}
+
+@media (min-width: 600px) {
+    body {
+        padding: 2rem;
+    }
 }
 
 body,
-input[type="text"],
-button {
+input[text] {
     color: #333;
     font-family: Cambria, Georgia, serif;
 }
 
-/* everywhere else */
-* {
-    font-family: Arial, Helvetica, sans-serif;
+a {
+    cursor: pointer;
+}
+
+button {
+    background-color: #eee;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    color: black;
+    font-size: 1.2rem;
+    padding: 1rem;
+    margin-right: 1rem;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+}
+
+button:hover {
+    background-color: black;
+    color: white;
+}
+
+button:disabled {
+    background-color: #eee;
+    color: #aaa;
+    cursor: auto;
+}
+
+/* Navigation link styles */
+nav a {
+    padding: 5px 10px;
+    text-decoration: none;
+    margin-right: 10px;
+    margin-top: 10px;
+    display: inline-block;
+    background-color: #e8e8e8;
+    color: #3d3d3d;
+    border-radius: 4px;
+}
+
+nav a:hover {
+    color: white;
+    background-color: #42545C;
+}
+
+nav a.active {
+    background-color: black;
+    color: white;
+}
+
+hr {
+    margin: 1.5rem 0;
+}
+
+input[type="text"] {
+    box-sizing: border-box;
+    width: 100%;
+    padding: .5rem;
 }
 
 /* heroes */
@@ -37,35 +105,34 @@ button {
 }
 
 .heroes li {
-    cursor: pointer;
     position: relative;
-    left: 0;
+    cursor: pointer;
+}
+
+.heroes li:hover {
+    left: .1em;
+}
+
+.heroes a {
+    color: #333;
+    text-decoration: none;
     background-color: #EEE;
     margin: .5em;
     padding: .3em 0;
     height: 1.6em;
     border-radius: 4px;
+    display: block;
+    width: 100%;
 }
 
-.heroes li:hover {
+.heroes a:hover {
     color: #2c3a41;
     background-color: #e6e6e6;
-    left: .1em;
 }
 
-.heroes li.selected {
-    background-color: black;
-    color: white;
-}
-
-.heroes li.selected:hover {
-    background-color: #505050;
-    color: white;
-}
-
-.heroes li.selected:active {
-    background-color: black;
-    color: white;
+.heroes a:active {
+    background-color: #525252;
+    color: #fafafa;
 }
 
 .heroes .badge {
@@ -79,6 +146,8 @@ button {
     left: -1px;
     top: -4px;
     height: 1.8em;
+    min-width: 16px;
+    text-align: right;
     margin-right: .8em;
     border-radius: 4px 0 0 4px;
 }
@@ -101,4 +170,50 @@ input {
 .clear:hover {
     color: white;
     background-color: #42545C;
+}
+
+
+.heroes-menu {
+    padding: 0;
+    margin: auto;
+    max-width: 1000px;
+
+    /* flexbox */
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-content: flex-start;
+    align-items: flex-start;
+}
+
+.heroes-menu a {
+    background-color: #3f525c;
+    border-radius: 2px;
+    padding: 1rem;
+    font-size: 1.2rem;
+    text-decoration: none;
+    display: inline-block;
+    color: #fff;
+    text-align: center;
+    width: 100%;
+    min-width: 70px;
+    margin: .5rem auto;
+    box-sizing: border-box;
+
+    /* flexbox */
+    order: 0;
+    flex: 0 1 auto;
+    align-self: auto;
+}
+
+@media (min-width: 600px) {
+    .heroes-menu a {
+        width: 18%;
+        box-sizing: content-box;
+    }
+}
+
+.heroes-menu a:hover {
+    background-color: #000;
 }

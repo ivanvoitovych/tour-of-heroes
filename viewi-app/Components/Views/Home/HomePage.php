@@ -2,9 +2,19 @@
 
 namespace Components\Views\Home;
 
+use Components\Services\HeroService;
 use Viewi\BaseComponent;
 
 class HomePage extends BaseComponent
 {
-    public string $title = 'Tour of Heroes';
+    /**
+     * 
+     * @var HeroModel[]
+     */
+    public array $heros;
+
+    public function __init(HeroService $heroService)
+    {
+        $this->heros = array_slice($heroService->GetHeroes(), 0, 4);
+    }
 }

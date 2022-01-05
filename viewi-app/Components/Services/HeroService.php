@@ -3,6 +3,7 @@
 namespace Components\Services;
 
 use Components\Mocks\HerosMocks;
+use Components\Models\HeroModel;
 
 class HeroService
 {
@@ -19,5 +20,17 @@ class HeroService
     {
         $this->messageService->Add('HeroService: fetched heroes');
         return $this->herosMocks->GetHeroes();
+    }
+
+    public function GetHero(int $id): ?HeroModel
+    {
+        $this->messageService->Add("HeroService: fetched hero id={$id}");
+        $searchResult = array_values(array_filter(
+            $this->herosMocks->GetHeroes(),
+            function (HeroModel $x) use ($id) {
+                return $x->Id == $id;
+            }
+        ));
+        return $searchResult ? $searchResult[0] : null;
     }
 }
