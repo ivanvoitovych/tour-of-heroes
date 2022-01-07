@@ -5,6 +5,12 @@ Borrowed from Angular [Tour of Heroes](https://angular.io/tutorial)
 
 If you see any copyright violations please mail me and I will take actions immediately.
 
+![Dashboard](/assets/dashboard.png?raw=true "Dashboard")
+
+![Hero Details](/assets/heroDetails.png?raw=true "Hero Details")
+
+![Heroes](/assets/heroes.png?raw=true "Heroes")
+
 # Step 1
 
 Create a folder for your project.
@@ -1766,6 +1772,7 @@ class Heroes extends BaseComponent
             $hero = new HeroModel();
             $hero->Name = $this->heroName;
             $this->heroService->Create($hero, function () {
+                $this->heroName = '';
                 $this->ReadHeroes();
             });
         }
