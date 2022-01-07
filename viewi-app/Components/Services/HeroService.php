@@ -37,4 +37,37 @@ class HeroService
             $this->messageService->Add('HeroService: error has occurred. ' . json_encode($error));
         });
     }
+
+    public function Update(HeroModel $hero, callable $callback)
+    {
+        $this->messageService->Add("HeroService: updating hero id={$hero->Id}");
+        $this->http->put("/api/heroes/{$hero->Id}", $hero)->then(function () use ($hero, $callback) {
+            $this->messageService->Add("HeroService: updated hero id={$hero->Id}");
+            $callback();
+        }, function ($error) {
+            $this->messageService->Add('HeroService: error has occurred. ' . json_encode($error));
+        });
+    }
+
+    public function Create(HeroModel $hero, callable $callback)
+    {
+        $this->messageService->Add("HeroService: creating hero");
+        $this->http->post("/api/heroes", $hero)->then(function (HeroModel $newHero) use ($callback) {
+            $this->messageService->Add("HeroService: created hero id={$newHero->Id}");
+            $callback($newHero);
+        }, function ($error) {
+            $this->messageService->Add('HeroService: error has occurred. ' . json_encode($error));
+        });
+    }
+
+    public function Delete(int $id, callable $callback)
+    {
+        $this->messageService->Add("HeroService: deleting hero $id");
+        $this->http->delete("/api/heroes/$id")->then(function () use ($id, $callback) {
+            $this->messageService->Add("HeroService: deleted hero id={$id}");
+            $callback();
+        }, function ($error) {
+            $this->messageService->Add('HeroService: error has occurred. ' . json_encode($error));
+        });
+    }
 }

@@ -1,8 +1,16 @@
 <Layout title="My Heroes">
     <h2>My Heroes</h2>
+    <div>
+        <label for="new-hero">Hero name: </label>
+        <input id="new-hero" model="$heroName" />
+        <button class="add-button" (click)="Add()">
+            Add hero
+        </button>
+    </div>
     <ul class="heroes">
         <li foreach="$heros as $hero">
             <a href="/detail/{$hero->Id}"><span class="badge">{$hero->Id}</span> {$hero->Name}</a>
+            <button class="delete" title="delete hero" (click)="Delete($hero)">x</button>
         </li>
     </ul>
 </Layout>
