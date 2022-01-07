@@ -2,35 +2,39 @@
 
 namespace Components\Services;
 
-use Components\Mocks\HerosMocks;
 use Components\Models\HeroModel;
+use Viewi\Common\HttpClient;
 
 class HeroService
 {
-    private HerosMocks $herosMocks;
+    private HttpClient $http;
     private MessageService $messageService;
 
-    public function __construct(HerosMocks $herosMocks, MessageService $messageService)
+    public function __construct(HttpClient $http, MessageService $messageService)
     {
-        $this->herosMocks = $herosMocks;
+        $this->http = $http;
         $this->messageService = $messageService;
     }
 
-    public function GetHeroes(): array
+    public function GetHeroes(callable $callback)
     {
-        $this->messageService->Add('HeroService: fetched heroes');
-        return $this->herosMocks->GetHeroes();
+        $this->messageService->Add('HeroService: fetching heroes');
+        $this->http->get('/api/heroes')->then(function (array $heroes) use ($callback) {
+            $this->messageService->Add('HeroService: fetched heroes');
+            $callback($heroes);
+        }, function ($error) {
+            $this->messageService->Add('HeroService: error has occurred. ' . json_encode($error));
+        });
     }
 
-    public function GetHero(int $id): ?HeroModel
+    public function GetHero(int $id, callable $callback)
     {
-        $this->messageService->Add("HeroService: fetched hero id={$id}");
-        $searchResult = array_values(array_filter(
-            $this->herosMocks->GetHeroes(),
-            function (HeroModel $x) use ($id) {
-                return $x->Id == $id;
-            }
-        ));
-        return $searchResult ? $searchResult[0] : null;
+        $this->messageService->Add("HeroService: fetching hero id={$id}");
+        $this->http->get("/api/heroes/{$id}")->then(function (?HeroModel $hero) use ($id, $callback) {
+            $this->messageService->Add("HeroService: fetched hero id={$id}");
+            $callback($hero);
+        }, function ($error) {
+            $this->messageService->Add('HeroService: error has occurred. ' . json_encode($error));
+        });
     }
 }

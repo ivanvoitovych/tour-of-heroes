@@ -14,7 +14,9 @@ class HeroDetail extends BaseComponent
 
     public function __init(HeroService $heroService, ClientRouter $router, int $id)
     {
-        $this->hero = $heroService->GetHero($id);
+        $heroService->GetHero($id, function (?HeroModel $hero) {
+            $this->hero = $hero;
+        });
         $this->router = $router;
     }
 

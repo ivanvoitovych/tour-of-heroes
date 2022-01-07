@@ -17,7 +17,9 @@ class Heroes extends BaseComponent
 
     public function __init(HeroService $heroService, MessageService $messageService)
     {
-        $this->heros = $heroService->GetHeroes();
+        $heroService->GetHeroes(function (array $heroes) {
+            $this->heros = $heroes;
+        });
         $this->messageService = $messageService;
     }
 }

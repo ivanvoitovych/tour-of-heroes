@@ -1,4 +1,4 @@
-<Layout title="{$hero->Name} details">
+<Layout title="{$hero ? $hero->Name : ''} details">
     <div if="$hero">
         <h2>{strtoupper($hero->Name)} Details</h2>
         <div><span>id: </span>{$hero->Id}</div>
