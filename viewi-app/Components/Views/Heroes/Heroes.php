@@ -37,6 +37,7 @@ class Heroes extends BaseComponent
             $hero = new HeroModel();
             $hero->Name = $this->heroName;
             $this->heroService->Create($hero, function () {
+                $this->heroName = '';
                 $this->ReadHeroes();
             });
         }
