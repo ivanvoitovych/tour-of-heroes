@@ -354,7 +354,7 @@ class Heroes extends BaseComponent
 }
 ```
 
-## Let's add a details for selected hero
+## Let's add some details for the selected hero
 
 Add these to our template:
 
@@ -370,7 +370,7 @@ Add these to our template:
 ```
 
 When you refresh the page you will get an error that says 'Trying to get property 'Name' of non-object'
-and in browser's console you will se the error as well: 'Uncaught TypeError: Cannot read properties of null (reading 'Name')'
+and in browser's console you will see the error as well: 'Uncaught TypeError: Cannot read properties of null (reading 'Name')'
 
 To fix that we need to display this only if there is $selectedHero available using if directive
 `if="$selectedHero"`.
@@ -458,7 +458,7 @@ And now in our Heroes component template remove block with $selectedHero and rep
 <HeroDetail></HeroDetail>
 ````
 
-Now we need to pass our $selectedHero into the HeroDetail component. To do this you just need to set attribute that has the name of a public property that we want to assign. In our case, based on the code `public ?HeroModel $hero = null;` it's "hero". And then set the value that we want to pass through: `hero="$selectedHero"`. Like this:
+Now we need to pass our $selectedHero into the HeroDetail component. To do this you just need to set an attribute that has the name of a public property that we want to assign. In our case, based on the code `public ?HeroModel $hero = null;` it's "hero". And then set the value that we want to pass through: `hero="$selectedHero"`. Like this:
 
 ```html
 <HeroDetail hero="$selectedHero"></HeroDetail>
@@ -478,11 +478,11 @@ The result should be:
 <HeroDetail hero="$selectedHero"></HeroDetail>
 ```
 
-Try to refresh the page and edit some hero. And now your code is more cleaner.
+Try to refresh the page and edit some hero. And now your code is cleaner.
 
 # Step 7 - Add Services
 
-Let's continue our code separation. And this time le'ts move our data logic to the service. And leave our view components to be responsible only for the displaying the page.
+Let's continue our code separation. And this time le'ts move our data logic to the service. And leave our view components to be responsible only for the displaying of the page.
 
 Please create the HeroService:
 
@@ -714,7 +714,7 @@ Let's start from removing Heroes and Messages components from our home page.
 </Layout>
 ```
 
-Then we add Messages component to the Layout. And changing the title's base from Viewi to Tour of Heros:
+Then we add the Messages component to the Layout. And changing the title's base from Viewi to Tour of Heros:
 
 `viewi-app\Components\Views\Layouts\Layout.html`
 
@@ -784,7 +784,7 @@ class HomePage extends BaseComponent
 </Layout>
 ```
 
-Now when you refresh the page you should see the Dashboard with top 4 heros. But when you click on the hero you will see page not found. Let's fix it.
+Now when you refresh the page you should see the Dashboard with top 4 heros. But when you click on the hero you will see that the page is not found. Let's fix it.
 
 First we need to set up a route for our HeroDetail component.
 
@@ -1286,7 +1286,7 @@ Here we use `Router::register` method with arguments:
 
  `$url = '/api/*'` which will be processed on all requests that start with `/api/` in their base path
 
- `$actionOrController = function..` we attached a callback function which will be executed once route will match the pattern url.
+ `$actionOrController = function..` we attached a callback function which will be executed once the route will match the pattern url.
 
  `Viewi\WebComponents\Response` is a helper class that is used to format the response, put some headers, etc.
 
@@ -1366,9 +1366,9 @@ public function __construct(HttpClient $http, MessageService $messageService)
 }
 ```
 
-To make a request let's use `http->get` method. I accepts two parameters.
+To make a request let's use `http->get` method. It accepts two parameters.
 First one is a callback function for the successful response processing which has a response data.
-And the second one is optional and will be executed if some error) has occurred.
+And the second one is optional and will be executed if some error has occurred.
 
 ```php
 $this->http->get('/api/heroes')->then(function (array $heroes) {
