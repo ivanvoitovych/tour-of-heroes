@@ -2,7 +2,7 @@
 
 Borrowed from Angular [Tour of Heroes](https://angular.io/tutorial)
 
-If you see any copyright violations please mail me and I will take actions immediately.
+If you see any copyright violations, please mail me, and I will take action immediately.
 
 ![Dashboard](/assets/dashboard.png?raw=true "Dashboard")
 
@@ -34,4 +34,4 @@ If you see any copyright violations please mail me and I will take actions immed
 
 I hope you liked this tutorial. And I apologize if something is unclear, I'm not much of a tutor.
 
-Feel free to contact me if you have any questions or found a bug.
+Feel free to contact me if you have any questions or find a bug.
