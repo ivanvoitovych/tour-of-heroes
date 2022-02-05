@@ -1,6 +1,6 @@
 # Step 7 - Add Services
 
-Let's continue our code separation. And this time le'ts move our data logic to the service. And leave our view components to be responsible only for the displaying of the page.
+Let's continue our code separation. And this time, let's move our data logic to the service. And leave our view components to be responsible only for displaying the page.
 
 Please create the HeroService:
 
@@ -29,7 +29,7 @@ class HeroService
 }
 ```
 
-And update the Heroes component to use the HeroService:
+And update the Heroes component to use the `HeroService`:
 
 ```php
 public function __construct(HeroService $heroService)
@@ -70,9 +70,9 @@ class Heroes extends BaseComponent
 }
 ```
 
-Ok, good. How about we create the Message Service and use for displaying messages on the page.
+Ok, good. How about we create the Message Service and use it for displaying messages on the page.
 
-Let's create the the MessageService:
+Let's create the `MessageService`:
 
 `viewi-app\Components\Services\MessageService.php`
 
@@ -101,7 +101,7 @@ class MessageService
 }
 ```
 
-And then, let's create a Messages component:
+And then, let's create the `Messages` component, which will display current messages.
 
 `viewi-app\Components\Views\Messages\Messages.php`
 
@@ -134,7 +134,7 @@ class Messages extends BaseComponent
 </div>
 ```
 
-And now let's include it as a tag into the Home Page
+And now, let's include it as a tag on the Home Page.
 
 `viewi-app\Components\Views\Home\HomePage.html`
 
@@ -146,7 +146,7 @@ And now let's include it as a tag into the Home Page
 </Layout>
 ```
 
-Now let's use it. Let's add some messages:
+Now let's use it and add some messages. For example, when we read heroes in the service:
 
 `viewi-app\Components\Services\HeroService.php`
 
@@ -176,7 +176,7 @@ class HeroService
 }
 ```
 
-And here:
+Or when we select a hero:
 
 `viewi-app\Components\Views\Heroes\Heroes.php`
 
@@ -214,9 +214,9 @@ class Heroes extends BaseComponent
 }
 ```
 
-Now when you refresh the page you will see messages at the bottom. 
-And every time you select a hero you will get a new message.
-To clear it just click 'Clear messages' button.
+When you refresh the page, you will see messages at the bottom. 
+And every time you select a hero, you will get a new message.
+To clear it, click the `Clear messages` button.
 
 ## [Step 8 - Add Navigation and Routes](/step-8.md)
 

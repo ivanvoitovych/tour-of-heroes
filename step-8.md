@@ -1,8 +1,8 @@
 # Step 8 - Add Navigation and Routes
 
-Now it's time to break our application into the pages. And assign a route to each of them.
+Now it's time to break our application into pages. And assign a route to each of them.
 
-Let's start from removing Heroes and Messages components from our home page.
+Let's remove `Heroes` and `Messages` components from our home page.
 
 `viewi-app\Components\Views\Home\HomePage.html`
 
@@ -12,7 +12,7 @@ Let's start from removing Heroes and Messages components from our home page.
 </Layout>
 ```
 
-Then we add the Messages component to the Layout. And changing the title's base from Viewi to Tour of Heros:
+Then we add the `Messages` component to the Layout. And change the title's base from `Viewi` to `Tour of Heros`:
 
 `viewi-app\Components\Views\Layouts\Layout.html`
 
@@ -42,7 +42,7 @@ Then we add the Messages component to the Layout. And changing the title's base 
 </html>
 ```
 
-Now let's modify our HomePage component to display TOP 4 heroes. Let's call it a Dashboard.
+Now let's modify our `HomePage` component to display TOP 4 heroes. Let's call it a Dashboard.
 
 `viewi-app\Components\Views\Home\HomePage.php`
 
@@ -82,9 +82,11 @@ class HomePage extends BaseComponent
 </Layout>
 ```
 
-Now when you refresh the page you should see the Dashboard with top 4 heros. But when you click on the hero you will see that the page is not found. Let's fix it.
+You should see the Dashboard with the top 4 heroes when you refresh the page. But when you click on the Hero, you will see a `page not found message. Let's fix it.
 
-First we need to set up a route for our HeroDetail component.
+First, we need to set up a route for our HeroDetail component.
+
+`ViewiRoute::get('/detail/{id}', HeroDetail::class);`
 
 `viewi-app\routes.php`
 
@@ -101,7 +103,9 @@ ViewiRoute::get('/detail/{id}', HeroDetail::class);
 ViewiRoute::get('*', NotFoundPage::class);
 ```
 
-Now we need to receive that id in our HeroDetail component and get the Hero:
+More about routing here: [https://viewi.net/docs/routing](https://viewi.net/docs/routing)
+
+We need to receive that id in our HeroDetail component and get the Hero. Route params will get injected automatically into your component.
 
 `viewi-app\Components\Views\HeroDetail\HeroDetail.php`
 
@@ -124,7 +128,7 @@ class HeroDetail extends BaseComponent
 }
 ```
 
-Now let's make a proper view for our page by wrapping it around Layout component and passing the title with the hero's name:
+Now let's make a good view for our page by wrapping it around the `Layout` component and passing the title with the Hero's name:
 
 `viewi-app\Components\Views\HeroDetail\HeroDetail.html`
 
@@ -141,7 +145,7 @@ Now let's make a proper view for our page by wrapping it around Layout component
 </Layout>
 ```
 
-Now we need to get our hero. For that let's add a new method GetHero(int $id) in our HeroService and use it inside our HeroDetail component:
+Now we need to get our Hero. For that, let's add a new method `GetHero(int $id)` in our `HeroService` and use it inside our HeroDetail component:
 
 `viewi-app\Components\Services\HeroService.php`
 
@@ -206,9 +210,9 @@ class HeroDetail extends BaseComponent
 }
 ```
 
-When you refresh the page and click on the hero you should see the details page. Also when you type the name it will update it on the page, including the page's title.
+When you refresh the page and click on the Hero, you should see the details page. Also, when you type the name, it will update it on the page, including the page's title.
 
-## Let's make the same for our Heroes component:
+## Let's make the same for our `Heroes` component:
 
 `viewi-app\Components\Views\Heroes\Heroes.php`
 
@@ -240,7 +244,6 @@ class Heroes extends BaseComponent
 
 `viewi-app\Components\Views\Heroes\Heroes.html`
 
-
 ```html
 <Layout title="My Heroes">
     <h2>My Heroes</h2>
@@ -251,6 +254,8 @@ class Heroes extends BaseComponent
     </ul>
 </Layout>
 ```
+
+Add a route: `ViewiRoute::get('/heroes', Heroes::class);`
 
 `viewi-app\routes.php`
 
@@ -269,7 +274,7 @@ ViewiRoute::get('/detail/{id}', HeroDetail::class);
 ViewiRoute::get('*', NotFoundPage::class);
 ```
 
-Ok cool, but how about some menu navigation. Let's create it in our Layout component:
+Ok, cool, but how about some menu navigation. Let's create it in our Layout component:
 
 `viewi-app\Components\Views\Layouts\Layout.html`
 
@@ -303,7 +308,11 @@ Ok cool, but how about some menu navigation. Let's create it in our Layout compo
 </html>
 ```
 
-Now we are able to navigate through pages. The only issue left is that we can't navigate back from hero details page. Let's fix it with ClientRouter and go back button:
+Now we can navigate through pages. The only issue is that we can't navigate back from the hero details page. Let's fix it with `ClientRouter` and the `go back` button:
+
+More about `ClientRouter` here: [https://viewi.net/docs/client-router](https://viewi.net/docs/client-router)
+
+You need to call the `navigateBack` method in `ClientRouter` to return.
 
 `viewi-app\Components\Views\HeroDetail\HeroDetail.php`
 
@@ -337,7 +346,7 @@ class HeroDetail extends BaseComponent
 
 `viewi-app\Components\Views\HeroDetail\HeroDetail.html`
 
-```hml
+```html
 <Layout title="{$hero->Name} details">
     <div if="$hero">
         <h2>{strtoupper($hero->Name)} Details</h2>
@@ -351,7 +360,7 @@ class HeroDetail extends BaseComponent
 </Layout>
 ```
 
-And that's it. Now you can navigate through pages and edit heros.
+And that's it. Now you can navigate through pages and edit Heroes.
 
 ## [Step 9- Get data from a server](/step-9.md)
 

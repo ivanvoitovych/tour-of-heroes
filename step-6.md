@@ -1,7 +1,7 @@
 # Step 6 - Create HeroDetail component
 
-Right now we display a list and selected hero details in the same component.
-Let's separate those and create HeroDetail component.
+We display a list and selected hero details in the same component.
+Let's separate those and create the `HeroDetail` component. It will have the `$hero` property with a null value by default.
 
 `viewi-app\Components\Views\HeroDetail\HeroDetail.php`
 
@@ -19,7 +19,7 @@ class HeroDetail extends BaseComponent
 }
 ```
 
-And move hero details html part to the view, renaming $selectedHero to the $hero accordingly:
+Please move the hero details HTML part to the view, renaming `$selectedHero` to the `$hero` accordingly:
 
 `viewi-app\Components\Views\HeroDetail\HeroDetail.html`
 
@@ -34,17 +34,24 @@ And move hero details html part to the view, renaming $selectedHero to the $hero
 </div>
 ```
 
-And now in our Heroes component template remove block with $selectedHero and replace it with HeroDetail tag:
+And now, in our `Heroes` component template, please remove block with $selectedHero and replace it with HeroDetail tag, like this:
 
 ```html
 <HeroDetail></HeroDetail>
 ````
 
-Now we need to pass our $selectedHero into the HeroDetail component. To do this you just need to set an attribute that has the name of a public property that we want to assign. In our case, based on the code `public ?HeroModel $hero = null;` it's "hero". And then set the value that we want to pass through: `hero="$selectedHero"`. Like this:
+We need to pass our `$selectedHero` into the `HeroDetail` component. To do this, you need to set an attribute with the name of a public property that we want to assign. 
+
+In our case, based on the code 
+`public ?HeroModel $hero = null;` it's "hero". 
+
+And then set the value that we want to pass through: `<HeroDetail hero="$selectedHero"`, like this:
 
 ```html
 <HeroDetail hero="$selectedHero"></HeroDetail>
 ```
+
+More about passing data through properties here: [https://viewi.net/docs/components-basics#passing-data](https://viewi.net/docs/components-basics#passing-data)
 
 The result should be:
 
@@ -60,7 +67,7 @@ The result should be:
 <HeroDetail hero="$selectedHero"></HeroDetail>
 ```
 
-Try to refresh the page and edit some hero. And now your code is cleaner.
+Now your code is cleaner. Try to refresh the page and edit some Hero.
 
 ## [Step 7 - Add Services](/step-7.md)
 

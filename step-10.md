@@ -15,10 +15,10 @@ Router::register('put', '/api/heroes/{id}', function (int $id) {
 });
 ```
 
-Here we read the request body, encode it into the object.
-And then convert it to the HeroModel using `Viewi\Common\JsonMapper`.
+Here we read the request's body and encode it into the object.
+And then convert it to the HeroModel using `Viewi\Common\JsonMapper`. It simply copies properties from one object to another if they exist. For production, you may need to consider using more advanced tools for data mapping.
 
-Now let's add a save button and a handler in our HeroDetail component:
+Now let's add a save button and a handler in our `HeroDetail` component:
 
 `viewi-app\Components\Views\HeroDetail\HeroDetail.html`
 
@@ -78,7 +78,7 @@ class HeroDetail extends BaseComponent
 }
 ```
 
-Now we need to add Update method to our HeroService.
+Now we need to add the `Update` method to our HeroService.
 
 ```php
 public function Update(HeroModel $hero, callable $callback)
@@ -316,10 +316,10 @@ class Heroes extends BaseComponent
 </Layout>
 ```
 
-After refreshing the page you should be able to read, update, create and delete heroes.
+After refreshing the page, you can read, update, create, and delete heroes.
 
 I hope you liked this tutorial. And I apologize if something is unclear, I'm not much of a tutor.
 
-Feel free to contact me if you have any questions or found a bug.
+Feel free to contact me if you have any questions or find a bug.
 
 ## [Home](/README.md#Steps)

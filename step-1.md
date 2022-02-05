@@ -2,9 +2,9 @@
 
 Create a folder for your project.
 
-Inside of this folder create our `public` folder with `index.php` in it:
+Inside this folder, create a `public` folder with `index.php` in it:
 
-```
+```php
 <?php
 
 require __DIR__ . '/../vendor/autoload.php';

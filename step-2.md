@@ -2,7 +2,11 @@
 
 run the following commands: 
 
+Install Viewi
+
 `composer require viewi/viewi`
+
+Create a new Viewi application
 
 `vendor/bin/viewi new`
 

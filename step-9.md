@@ -1,191 +1,20 @@
 # Step 9 - Get data from a server
 
-In this section we will learn to user HttpClient in order to communicate with the server.
+This section will learn how to use HttpClient to communicate with the server.
 
-Let's create an API endpoint to serve the data for us. Viewi can be used as a standalone application where you can create API endpoints without installing any other libraries or frameworks. That helps you to develop the application while your backend is still under development.
+Let's create an API endpoint to serve the data for us. Viewi can be used as a standalone application to make API endpoints without installing other libraries or frameworks. That helps you develop the application while your backend is still under development.
 
 ## Prepare backend folder
 
-Please create a `backend` folder and put there file repository file and a json data file. In real life you can use whatever source of data you want. But for this example let's use some dummy json file.
+Please create a `backend` folder and copy repository file and JSON with data file from here:
 
-`backend\HeroModel.json`
+[/backend/HeroModel.json](https://raw.githubusercontent.com/ivanvoitovych/tour-of-heroes/master/backend/HeroModel.json)
 
-```json
-[
-    {
-        "Id": 1,
-        "Name": "Metal Man"
-    },
-    {
-        "Id": 2,
-        "Name": "Firefly"
-    },
-    {
-        "Id": 3,
-        "Name": "Mastermind"
-    },
-    {
-        "Id": 4,
-        "Name": "Bulletproof"
-    },
-    {
-        "Id": 5,
-        "Name": "Fireball"
-    },
-    {
-        "Id": 6,
-        "Name": "Apex"
-    },
-    {
-        "Id": 7,
-        "Name": "Turbine"
-    },
-    {
-        "Id": 8,
-        "Name": "Tarantula"
-    },
-    {
-        "Id": 9,
-        "Name": "Shockwave"
-    },
-    {
-        "Id": 10,
-        "Name": "Steamroller"
-    }
-]
-```
+[/backend/repository.php](https://raw.githubusercontent.com/ivanvoitovych/tour-of-heroes/master/backend/repository.php)
 
-`backend\repository.php`
+In real life, you can use whatever source of data you want. But for this example, let's use a dummy JSON file.
 
-```php
-<?php
-
-namespace BackendApp;
-
-use Components\Models\HeroModel;
-use ReflectionException;
-use Viewi\Common\JsonMapper;
-
-class Repository
-{
-    /**
-     * 
-     * @var null|HasId[]
-     */
-    private ?array $data = null;
-    private bool $ready = false;
-    private string $className;
-    private string $fileName;
-
-    public function __construct(string $className)
-    {
-        $this->className = $className;
-        $baseName = substr(strrchr($className, "\\"), 1);
-        $this->fileName = __DIR__ . "/$baseName.json";
-    }
-
-    public function Get(): array
-    {
-        $this->Prepare();
-        return $this->data;
-    }
-
-    public function GetById(int $id)
-    {
-        $this->Prepare();
-        $searchResult = array_values(array_filter(
-            $this->data,
-            function ($x) use ($id) {
-                /** @var HasId $x */
-                return $x->Id == $id;
-            }
-        ));
-        return $searchResult ? $searchResult[0] : null;
-    }
-
-    /**
-     * 
-     * @param int $id 
-     * @param HasId $object 
-     * @return bool 
-     * @throws ReflectionException 
-     */
-    public function Update($object)
-    {
-        $this->Prepare();
-        foreach ($this->data as $index => $item) {
-            if ($item->Id === $object->Id) {
-                $this->data[$index] = $object;
-                $this->Flush();
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
-     * 
-     * @param HasId $object 
-     * @return bool 
-     * @throws ReflectionException 
-     */
-    public function Create($object)
-    {
-        $this->Prepare();
-        if (count($this->data)) {
-            $object->Id = $this->data[count($this->data) - 1]->Id + 1;
-        } else {
-            $object->Id = 1;
-        }
-        $this->data[] = $object;
-        $this->Flush();
-        return $object;
-    }
-
-    public function Delete(int $id)
-    {
-        $this->Prepare();
-        foreach ($this->data as $index => $item) {
-            if ($item->Id === $id) {
-                unset($this->data[$index]);
-                $this->data = array_values($this->data);
-                $this->Flush();
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private function Flush()
-    {
-        file_put_contents($this->fileName, json_encode($this->data));
-    }
-
-    private function Prepare()
-    {
-        if (!$this->ready) {
-            $this->data = [];
-            if (file_exists($this->fileName)) {
-                $json = file_get_contents($this->fileName);
-                $objects = json_decode($json, false);
-                foreach ($objects as $object) {
-                    $this->data[] = JsonMapper::Instantiate($this->className, $object);
-                }
-            } else {
-                $this->data = [];
-                file_put_contents($this->fileName, json_encode($this->data));
-            }
-        }
-    }
-}
-
-abstract class HasId
-{
-    public int $Id;
-}
-```
-
-Now let's create our backend endpoints using `Viewi\Routing\Router`. For that let's create a file:
+Now let's create our backend endpoints using `Viewi\Routing\Router`. For that, let's make a file:
 
 `backend\endpoints.php`
 
@@ -212,7 +41,7 @@ include __DIR__ . '/../viewi-app/viewi.php';
 Viewi\App::handle();
 ```
 
-Now we are ready to create API endpoints. Let's do this. First le'ts add a 404 route for all the `/api/*` requests:
+Now we are ready to create API endpoints. Let's do this. First, let's add a 404 route for all the `/api/*` requests:
 
 ```php
 // 404 
@@ -223,19 +52,19 @@ Router::register('*', '/api/*', function () {
 });
 ```
 
-Here we use `Router::register` method with arguments:
+Here we use the `Router::register` method with arguments:
 
  `$method = '*'` which means all the methods
 
  `$url = '/api/*'` which will be processed on all requests that start with `/api/` in their base path
 
- `$actionOrController = function..` we attached a callback function which will be executed once the route will match the pattern url.
+ `$actionOrController = function..` we attached a callback function which Viewi will execute once the route matches the pattern URL.
 
- `Viewi\WebComponents\Response` is a helper class that is used to format the response, put some headers, etc.
+ `Viewi\WebComponents\Response` is a helper class used to format the response, put some headers, etc.
 
- Remember, routes with `*` (like '/api/*') should be declared at the end to prevent interception for the rest of endpoint rules.
+ Remember, routes with `*` (like '/api/*') should be declared at the end to prevent interception for the rest of the endpoint rules.
 
-## Let's create `/api/heroes` endpoint which will return the data from our dummy data source:
+## Let's create a `/api/heroes` endpoint which will return the data from our dummy data source:
 
 ```php
 use Components\Models\HeroModel;
@@ -246,10 +75,10 @@ Router::register('get', '/api/heroes', function () {
 });
 ```
 
-Now, when the base path is `/api/heroes`, the application will return data from the repository with `HeroModel` type.
-Everything that is returned from the callback function will be returned as a http response and automatically converted into the json content type if necessary.
+When the base path is `/api/heroes`, the application will return data from the repository with the `HeroModel` type. In a real-world application, you most likely will need to map your DB entity object(s) to model(s) from Viewi.
+Everything that is returned from the callback function will be produced as an HTTP response and automatically converted into the JSON content type if necessary.
 
-And another one:
+Add another one:
 
 ```php
 Router::register('get', '/api/heroes/{id}', function (int $id) {
@@ -258,9 +87,9 @@ Router::register('get', '/api/heroes/{id}', function (int $id) {
 });
 ```
 
-Here we use `/api/heroes/{id}` route match rule which will capture `id` and pass it to the callback function as an argument with the same name.
+Here we use the `/api/heroes/{id}` route match rule, which will capture `id` and pass it to the callback function as an argument with the same name.
 
-The final version of file:
+The final version of the file:
 
 `backend\endpoints.php`
 
@@ -296,7 +125,7 @@ Router::register('*', '/api/*', function () {
 
 ## Calling an API
 
-Now we are ready to consume our API. Let's modify our HeroService to use HttpClient instead of using mocks.
+Now we are ready to consume our API. Let's modify our `HeroService` to use `HttpClient` instead of mocks.
 
 ```php
 private HttpClient $http;
@@ -310,7 +139,7 @@ public function __construct(HttpClient $http, MessageService $messageService)
 ```
 
 To make a request let's use `http->get` method. It accepts two parameters.
-First one is a callback function for the successful response processing which has a response data.
+The first is a callback function for successful response processing, which has response data.
 And the second one is optional and will be executed if some error has occurred.
 
 ```php
@@ -321,8 +150,8 @@ $this->http->get('/api/heroes')->then(function (array $heroes) {
     });
 ```
 
-Let's modify GetHeroes and GetHero methods. 
-Since the request is an asynchronous operation we will need to accept a callback instead of returning a value:
+Let's modify `GetHeroes` and `GetHero` methods. 
+Since the request is an asynchronous operation, we will need to accept a callback instead of returning a value:
 
 ```php
 public function GetHeroes(callable $callback)
@@ -335,7 +164,7 @@ public function GetHeroes(callable $callback)
 }
 ```
 
-Let's add some messages with `messageService->Add` and the final version will be like this:
+Let's add some messages with `messageService->Add`, and the final version should be like this:
 
 `viewi-app\Components\Services\HeroService.php`
 
@@ -382,7 +211,7 @@ class HeroService
 }
 ```
 
-Now we need to modify our components to properly use HeroService:
+Now we need to modify our components to use `HeroService` properly:
 
 By changing this:
 
@@ -420,8 +249,8 @@ $heroService->GetHeroes(function (array $heroes) {
 });
 ```
 
-Also `viewi-app\Components\Views\HeroDetail\HeroDetail.html` will need to be fixed a little. 
-Since the $hero property can be null now we need to change this:
+Also, `viewi-app\Components\Views\HeroDetail\HeroDetail.html` will need to be fixed a little. 
+Since the $hero property can be null now, we need to change this:
 
 `<Layout title="{$hero->Name} details">`
 
@@ -429,9 +258,9 @@ to this:
 
 `<Layout title="{$hero ? $hero->Name : ''} details">`
 
-Now when you refresh the page your application will load the data from the server.
-Also you may notice that the html page from the server will come already pre rendered with the data (SSR).
-Only if you click some pages then the fresh data will be requested using AJAX.
+When you refresh the page, your application will load the data from the server. Also, if you inspect the network tab, you can see fully rendered HTML content with the data. That's SSR out of the box. 
+
+If you click some pages, new data will be requested using AJAX.
 
 ## [Step 10 - Saving hero changes](/step-10.md)
 
