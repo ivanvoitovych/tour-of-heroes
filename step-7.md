@@ -11,20 +11,20 @@ Please create the HeroService:
 
 namespace Components\Services;
 
-use Components\Mocks\HerosMocks;
+use Components\Mocks\HeroesMocks;
 
 class HeroService
 {
-    private HerosMocks $herosMocks;
+    private HeroesMocks $heroesMocks;
     
-    public function __construct(HerosMocks $herosMocks)
+    public function __construct(HeroesMocks $heroesMocks)
     {
-        $this->herosMocks = $herosMocks;
+        $this->heroesMocks = $heroesMocks;
     }
 
     public function GetHeroes(): array
     {
-        return $this->herosMocks->GetHeroes();
+        return $this->heroesMocks->GetHeroes();
     }
 }
 ```
@@ -34,7 +34,7 @@ And update the Heroes component to use the `HeroService`:
 ```php
 public function __construct(HeroService $heroService)
 {
-    $this->heros = $heroService->GetHeroes();
+    $this->heroes = $heroService->GetHeroes();
 }
 ```
 
@@ -55,12 +55,12 @@ class Heroes extends BaseComponent
      * 
      * @var HeroModel[]
      */
-    public array $heros;
+    public array $heroes;
     public ?HeroModel $selectedHero = null;
 
     public function __construct(HeroService $heroService)
     {
-        $this->heros = $heroService->GetHeroes();
+        $this->heroes = $heroService->GetHeroes();
     }
 
     public function onSelect(HeroModel $hero)
@@ -155,23 +155,23 @@ Now let's use it and add some messages. For example, when we read heroes in the 
 
 namespace Components\Services;
 
-use Components\Mocks\HerosMocks;
+use Components\Mocks\HeroesMocks;
 
 class HeroService
 {
-    private HerosMocks $herosMocks;
+    private HeroesMocks $heroesMocks;
     private MessageService $messageService;
 
-    public function __construct(HerosMocks $herosMocks, MessageService $messageService)
+    public function __construct(HeroesMocks $heroesMocks, MessageService $messageService)
     {
-        $this->herosMocks = $herosMocks;
+        $this->heroesMocks = $heroesMocks;
         $this->messageService = $messageService;
     }
 
     public function GetHeroes(): array
     {
         $this->messageService->Add('HeroService: fetched heroes');
-        return $this->herosMocks->GetHeroes();
+        return $this->heroesMocks->GetHeroes();
     }
 }
 ```
@@ -196,13 +196,13 @@ class Heroes extends BaseComponent
      * 
      * @var HeroModel[]
      */
-    public array $heros;
+    public array $heroes;
     public ?HeroModel $selectedHero = null;
     private MessageService $messageService;
 
     public function __construct(HeroService $heroService, MessageService $messageService)
     {
-        $this->heros = $heroService->GetHeroes();
+        $this->heroes = $heroService->GetHeroes();
         $this->messageService = $messageService;
     }
 

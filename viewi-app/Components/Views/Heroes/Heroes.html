@@ -8,7 +8,7 @@
         </button>
     </div>
     <ul class="heroes">
-        <li foreach="$heros as $hero">
+        <li foreach="$heroes as $hero">
             <a href="/detail/{$hero->Id}"><span class="badge">{$hero->Id}</span> {$hero->Name}</a>
             <button class="delete" title="delete hero" (click)="Delete($hero)">x</button>
         </li>

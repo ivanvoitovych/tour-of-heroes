@@ -11,12 +11,12 @@ class HomePage extends BaseComponent
      * 
      * @var HeroModel[]
      */
-    public array $heros = [];
+    public array $heroes = [];
 
     public function __init(HeroService $heroService)
     {
         $heroService->GetHeroes(function (array $heroes) {
-            $this->heros = array_slice($heroes, 0, 4);
+            $this->heroes = array_slice($heroes, 0, 4);
         });
     }
 }

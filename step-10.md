@@ -256,7 +256,7 @@ class Heroes extends BaseComponent
      * 
      * @var HeroModel[]
      */
-    public array $heros;
+    public array $heroes;
     public string $heroName = '';
     private HeroService $heroService;
 
@@ -270,7 +270,7 @@ class Heroes extends BaseComponent
     public function ReadHeroes()
     {
         $this->heroService->GetHeroes(function (array $heroes) {
-            $this->heros = $heroes;
+            $this->heroes = $heroes;
         });
     }
 
@@ -308,7 +308,7 @@ class Heroes extends BaseComponent
         </button>
     </div>
     <ul class="heroes">
-        <li foreach="$heros as $hero">
+        <li foreach="$heroes as $hero">
             <a href="/detail/{$hero->Id}"><span class="badge">{$hero->Id}</span> {$hero->Name}</a>
             <button class="delete" title="delete hero" (click)="Delete($hero)">x</button>
         </li>

@@ -12,7 +12,7 @@ Let's remove `Heroes` and `Messages` components from our home page.
 </Layout>
 ```
 
-Then we add the `Messages` component to the Layout. And change the title's base from `Viewi` to `Tour of Heros`:
+Then we add the `Messages` component to the Layout. And change the title's base from `Viewi` to `Tour of Heroes`:
 
 `viewi-app\Components\Views\Layouts\Layout.html`
 
@@ -22,7 +22,7 @@ Then we add the `Messages` component to the Layout. And change the title's base 
 
 <head>
     <title>
-        $title | Tour of Heros
+        $title | Tour of Heroes
     </title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -32,7 +32,7 @@ Then we add the `Messages` component to the Layout. And change the title's base 
 
 <body>
     <div id="content">
-        <h1>Tour of Heros</h1>
+        <h1>Tour of Heroes</h1>
         <slot></slot>
     </div>
     <Messages></Messages>
@@ -60,11 +60,11 @@ class HomePage extends BaseComponent
      * 
      * @var HeroModel[]
      */
-    public array $heros;
+    public array $heroes;
 
     public function __init(HeroService $heroService)
     {
-        $this->heros = array_slice($heroService->GetHeroes(), 0, 4);
+        $this->heroes = array_slice($heroService->GetHeroes(), 0, 4);
     }
 }
 ```
@@ -75,7 +75,7 @@ class HomePage extends BaseComponent
 <Layout title="Dashboard">
     <h2>Top Heroes</h2>
     <div class="heroes-menu">
-        <a foreach="$heros as $hero" href="/detail/{$hero->Id}">
+        <a foreach="$heroes as $hero" href="/detail/{$hero->Id}">
             {$hero->Name}
         </a>
     </div>
@@ -154,31 +154,31 @@ Now we need to get our Hero. For that, let's add a new method `GetHero(int $id)`
 
 namespace Components\Services;
 
-use Components\Mocks\HerosMocks;
+use Components\Mocks\HeroesMocks;
 use Components\Models\HeroModel;
 
 class HeroService
 {
-    private HerosMocks $herosMocks;
+    private HeroesMocks $heroesMocks;
     private MessageService $messageService;
 
-    public function __construct(HerosMocks $herosMocks, MessageService $messageService)
+    public function __construct(HeroesMocks $heroesMocks, MessageService $messageService)
     {
-        $this->herosMocks = $herosMocks;
+        $this->heroesMocks = $heroesMocks;
         $this->messageService = $messageService;
     }
 
     public function GetHeroes(): array
     {
         $this->messageService->Add('HeroService: fetched heroes');
-        return $this->herosMocks->GetHeroes();
+        return $this->heroesMocks->GetHeroes();
     }
 
     public function GetHero(int $id): ?HeroModel
     {
         $this->messageService->Add("HeroService: fetched hero id={$id}");
         $searchResult = array_values(array_filter(
-            $this->herosMocks->GetHeroes(),
+            $this->heroesMocks->GetHeroes(),
             function (HeroModel $x) use ($id) {
                 return $x->Id == $id;
             }
@@ -232,11 +232,11 @@ class Heroes extends BaseComponent
      * 
      * @var HeroModel[]
      */
-    public array $heros;
+    public array $heroes;
 
     public function __init(HeroService $heroService, MessageService $messageService)
     {
-        $this->heros = $heroService->GetHeroes();
+        $this->heroes = $heroService->GetHeroes();
         $this->messageService = $messageService;
     }
 }
@@ -248,7 +248,7 @@ class Heroes extends BaseComponent
 <Layout title="My Heroes">
     <h2>My Heroes</h2>
     <ul class="heroes">
-        <li foreach="$heros as $hero">
+        <li foreach="$heroes as $hero">
             <a href="/detail/{$hero->Id}"><span class="badge">{$hero->Id}</span> {$hero->Name}</a>
         </li>
     </ul>
@@ -284,7 +284,7 @@ Ok, cool, but how about some menu navigation. Let's create it in our Layout comp
 
 <head>
     <title>
-        $title | Tour of Heros
+        $title | Tour of Heroes
     </title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -294,7 +294,7 @@ Ok, cool, but how about some menu navigation. Let's create it in our Layout comp
 
 <body>
     <div id="content">
-        <h1>Tour of Heros</h1>
+        <h1>Tour of Heroes</h1>
         <nav>
             <a href="/">Dashboard</a>
             <a href="/heroes">Heroes</a>

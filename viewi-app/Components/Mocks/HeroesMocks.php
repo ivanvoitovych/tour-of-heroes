@@ -4,7 +4,7 @@ namespace Components\Mocks;
 
 use Components\Models\HeroModel;
 
-class HerosMocks
+class HeroesMocks
 {
     private ?array $heroes = null;
 

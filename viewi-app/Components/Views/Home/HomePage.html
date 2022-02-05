@@ -1,7 +1,7 @@
 <Layout title="Dashboard">
     <h2>Top Heroes</h2>
     <div class="heroes-menu">
-        <a foreach="$heros as $hero" href="/detail/{$hero->Id}">
+        <a foreach="$heroes as $hero" href="/detail/{$hero->Id}">
             {$hero->Name}
         </a>
     </div>

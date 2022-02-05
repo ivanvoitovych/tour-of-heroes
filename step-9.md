@@ -227,25 +227,25 @@ $heroService->GetHero($id, function (?HeroModel $hero) {
 
 This:
 
-`$this->heros = array_slice($heroService->GetHeroes(), 0, 4);`
+`$this->heroes = array_slice($heroService->GetHeroes(), 0, 4);`
 
 to this:
 
 ```php
 $heroService->GetHeroes(function (array $heroes) {
-    $this->heros = array_slice($heroes, 0, 4);
+    $this->heroes = array_slice($heroes, 0, 4);
 });
 ```
 
 And this:
 
-`$this->heros = $heroService->GetHeroes();`
+`$this->heroes = $heroService->GetHeroes();`
 
 to this:
 
 ```php
 $heroService->GetHeroes(function (array $heroes) {
-    $this->heros = $heroes;
+    $this->heroes = $heroes;
 });
 ```
 

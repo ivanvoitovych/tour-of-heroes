@@ -60,7 +60,7 @@ The result should be:
 ```html
 <h2>My Heroes</h2>
 <ul class="heroes">
-    <li foreach="$heros as $hero" (click)="onSelect($hero)" class.selected="$hero === $selectedHero">
+    <li foreach="$heroes as $hero" (click)="onSelect($hero)" class.selected="$hero === $selectedHero">
         <span class="badge">{$hero->Id}</span> {$hero->Name}
     </li>
 </ul>

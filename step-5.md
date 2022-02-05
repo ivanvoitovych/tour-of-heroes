@@ -2,9 +2,9 @@
 
 ## Let's create a mock for heroes
 
-To simulate real-world data, let's create a list of Heros. Please make the `HerosMocks` file and copy the following content. Later, we will create a backend API and use the server's data.
+To simulate real-world data, let's create a list of Heroes. Please make the `HeroesMocks` file and copy the following content. Later, we will create a backend API and use the server's data.
 
-`viewi-app\Components\Mocks\HerosMocks.php`
+`viewi-app\Components\Mocks\HeroesMocks.php`
 
 ```php
 <?php
@@ -13,7 +13,7 @@ namespace Components\Mocks;
 
 use Components\Models\HeroModel;
 
-class HerosMocks
+class HeroesMocks
 {
     private ?array $heroes = null;
 
@@ -55,7 +55,7 @@ And then use it in our component by injecting it into the constructor:
 
 namespace Components\Views\Heroes;
 
-use Components\Mocks\HerosMocks;
+use Components\Mocks\HeroesMocks;
 use Components\Models\HeroModel;
 use Viewi\BaseComponent;
 
@@ -65,11 +65,11 @@ class Heroes extends BaseComponent
      * 
      * @var HeroModel[]
      */
-    public array $heros;
+    public array $heroes;
 
-    public function __construct(HerosMocks $herosMocks)
+    public function __construct(HeroesMocks $heroesMocks)
     {
-        $this->heros = $herosMocks->GetHeroes();
+        $this->heroes = $heroesMocks->GetHeroes();
     }
 }
 ```
@@ -77,14 +77,14 @@ class Heroes extends BaseComponent
 Viewi handles dependency injections automatically for you. No need to set up anything. More about it here: [https://viewi.net/docs/di](https://viewi.net/docs/di).
 
 Please, open the template file, and let's output the list of heroes. 
-To iterate through the list of heroes, please use a `foreach` directive as an attribute: `<li foreach="$heros as $hero">`.
+To iterate through the list of heroes, please use a `foreach` directive as an attribute: `<li foreach="$heroes as $hero">`.
 
 `viewi-app\Components\Views\Heroes\Heroes.html`
 
 ```html
 <h2>My Heroes</h2>
 <ul class="heroes">
-    <li foreach="$heros as $hero">
+    <li foreach="$heroes as $hero">
         <span class="badge">{$hero->Id}</span> {$hero->Name}
     </li>
 </ul>
@@ -158,7 +158,7 @@ More about event handling here: [https://viewi.net/docs/events](https://viewi.ne
 ```html
 <h2>My Heroes</h2>
 <ul class="heroes">
-    <li foreach="$heros as $hero" (click)="onSelect($hero)">
+    <li foreach="$heroes as $hero" (click)="onSelect($hero)">
         <span class="badge">{$hero->Id}</span> {$hero->Name}
     </li>
 </ul>
@@ -186,7 +186,7 @@ Now, your component should look something like this:
 
 namespace Components\Views\Heroes;
 
-use Components\Mocks\HerosMocks;
+use Components\Mocks\HeroesMocks;
 use Components\Models\HeroModel;
 use Viewi\BaseComponent;
 
@@ -196,12 +196,12 @@ class Heroes extends BaseComponent
      * 
      * @var HeroModel[]
      */
-    public array $heros;
+    public array $heroes;
     public ?HeroModel $selectedHero = null;
 
-    public function __construct(HerosMocks $herosMocks)
+    public function __construct(HeroesMocks $heroesMocks)
     {
-        $this->heros = $herosMocks->GetHeroes();
+        $this->heroes = $heroesMocks->GetHeroes();
     }
 
     public function onSelect(HeroModel $hero)
@@ -265,7 +265,7 @@ The template should look like this:
 ```html
 <h2>My Heroes</h2>
 <ul class="heroes">
-    <li foreach="$heros as $hero" (click)="onSelect($hero)" class.selected="$hero === $selectedHero">
+    <li foreach="$heroes as $hero" (click)="onSelect($hero)" class.selected="$hero === $selectedHero">
         <span class="badge">{$hero->Id}</span> {$hero->Name}
     </li>
 </ul>
