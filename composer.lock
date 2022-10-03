@@ -4,23 +4,24 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f856dd054502d2bfad1d049e44937187",
+    "content-hash": "94a2d64fe2ba8fd40aef36dda0170ef2",
     "packages": [
         {
             "name": "viewi/viewi",
-            "version": "v0.1.3",
+            "version": "v0.6.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/viewi/viewi.git",
-                "reference": "c035135e1efcab34693f3bb6d38a9506743e2157"
+                "reference": "122807b49fe877f4baf911149bc6e24f4b2f07fd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/viewi/viewi/zipball/c035135e1efcab34693f3bb6d38a9506743e2157",
-                "reference": "c035135e1efcab34693f3bb6d38a9506743e2157",
+                "url": "https://api.github.com/repos/viewi/viewi/zipball/122807b49fe877f4baf911149bc6e24f4b2f07fd",
+                "reference": "122807b49fe877f4baf911149bc6e24f4b2f07fd",
                 "shasum": ""
             },
             "require": {
+                "ext-json": "*",
                 "php": "^7.4 || ^8.0"
             },
             "bin": [
@@ -36,6 +37,12 @@
             "license": [
                 "MIT"
             ],
+            "authors": [
+                {
+                    "name": "Ivan Voitovych",
+                    "email": "col606v@gmail.com"
+                }
+            ],
             "description": "Powerful tool for building progressive and completely reactive web applications",
             "keywords": [
                 "reactive",
@@ -45,9 +52,15 @@
             ],
             "support": {
                 "issues": "https://github.com/viewi/viewi/issues",
-                "source": "https://github.com/viewi/viewi/tree/v0.1.3"
+                "source": "https://github.com/viewi/viewi/tree/v0.6.4"
             },
-            "time": "2022-01-03T16:47:07+00:00"
+            "funding": [
+                {
+                    "url": "https://www.buymeacoffee.com/ivan.v",
+                    "type": "custom"
+                }
+            ],
+            "time": "2022-09-25T16:11:56+00:00"
         }
     ],
     "packages-dev": [],
