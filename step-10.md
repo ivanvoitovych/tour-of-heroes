@@ -11,7 +11,7 @@ Router::register('put', '/api/heroes/{id}', function (int $id) {
     // convert type
     $hero = JsonMapper::Instantiate(HeroModel::class, $stdObject);
     $repository = new Repository(HeroModel::class);
-    return $repository->Update($id, $hero);
+    return $repository->Update($hero);
 });
 ```
 
